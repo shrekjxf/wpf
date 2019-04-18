@@ -100,8 +100,7 @@
   -->
   <UsingTask TaskName="ParseExtendedAssemblyInfo"
              TaskFactory="CodeTaskFactory"
-             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" 
-             Condition="'$(MSBuildRuntimeType)'!='Core'">
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
     <ParameterGroup>
       <ExtendedAssemblyInfo ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
       <Result ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
@@ -275,7 +274,7 @@
       <Compile Remove="$(GeneratedExtendedAssemblyInfoFile)" />
     </ItemGroup>
 
-    <ParseExtendedAssemblyInfo ExtendedAssemblyInfo="@(ExtendedAssemblyInfo)" Condition="'$(MSBuildRuntimeType)'!='Core'">
+    <ParseExtendedAssemblyInfo ExtendedAssemblyInfo="@(ExtendedAssemblyInfo)">
       <Output ItemName="ExtendedAttributeInfo" TaskParameter="Result" />
     </ParseExtendedAssemblyInfo>
 
