@@ -137,7 +137,7 @@ jobs:
       - powershell: eng\common\build.ps1
           -restore
           -projects $(Build.SourcesDirectory)\eng\helixpublish.proj
-          displayName: Restoring helixpublish.proj dependencies
+        displayName: Restoring helixpublish.proj dependencies
 
       # Prepare the helix payload
       - powershell: eng\prepare-helix-payload.ps1
