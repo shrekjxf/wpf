@@ -134,7 +134,20 @@ jobs:
           $(_PlatformArgs)
         displayName: Windows Build / Publish
 
-      - powershell: eng\cibuild.cmd
+       powershell: eng\common\build.ps1
+          -restore
+          -projects $(Build.SourcesDirectory)\eng\helixpublish.proj
+          displayName: Restoring helixpublish.proj dependencies
+
+      # Prepare the helix payload
+      - powershell: eng\prepare-helix-payload.ps1
+         -configuration $(_BuildConfig) -platform $(_Platform)
+         displayName: Preparing Helix Payload
+
+      # Run DRTs
+      - powershell: eng\common\build.ps1
+          -ci
+          -preparemachine
           -configuration $(_BuildConfig)
           $(_OfficialBuildIdArgs) 
           -test
