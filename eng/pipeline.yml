@@ -134,7 +134,7 @@ jobs:
           $(_PlatformArgs)
         displayName: Windows Build / Publish
 
-       powershell: eng\common\build.ps1
+      - powershell: eng\common\build.ps1
           -restore
           -projects $(Build.SourcesDirectory)\eng\helixpublish.proj
           displayName: Restoring helixpublish.proj dependencies
