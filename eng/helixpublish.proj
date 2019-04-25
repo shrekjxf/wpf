@@ -1,6 +1,10 @@
 
 <Project Sdk="Microsoft.DotNet.Helix.Sdk" DefaultTargets="Test">
   <PropertyGroup>
+    <IncludeDotNetCli>true</IncludeDotNetCli>
+    <DotNetCliPackageType>runtime</DotNetCliPackageType>
+    <DotNetCliVersion>latest</DotNetCliVersion>
+    <DotNetCliChannel>Current</DotNetCliChannel>
     <EnableXUnitReporter>true</EnableXUnitReporter>
     <EnableAzurePipelinesReporter>true</EnableAzurePipelinesReporter>
     <FailOnMissionControlTestFailure>true</FailOnMissionControlTestFailure>
@@ -9,12 +13,18 @@
 
   <ItemGroup>
     <!-- Include the necessary package versions here -->
-    <PackageReference Include="Microsoft.DotNet.Wpf.Drts" Version="1.0" />
-    <PackageReference Include="runtime.win-x64.microsoft.netcore.app" Version="$(MicrosoftNETCoreAppVersion)" />
+  <!--
+    <PackageReference Include="Microsoft.DotNet.Wpf.Tests" Version="1.0" />
+  -->
   </ItemGroup>
   <ItemGroup>
     <HelixCorrelationPayload Include="..\..\HelixPayload\$(Configuration)\$(Platform)" /> 
-    <HelixWorkItem Include="Annotations">
+    <HelixWorkItem Include="HelloHelix">
+      <Timeout>00:20:00</Timeout>
+      <Command>echo "hello from helix!"</Command>
+    </HelixWorkItem>
+   <!-- 
+   <HelixWorkItem Include="Annotations">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\rundrts.cmd /Area=Annotations</Command>
     </HelixWorkItem>
@@ -102,5 +112,6 @@
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\rundrts.cmd /Area=WindowsFormsIntegration</Command>
     </HelixWorkItem>
+    -->
   </ItemGroup>
 </Project>
