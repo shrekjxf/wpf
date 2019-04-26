@@ -1,6 +1,5 @@
 
-<!-- <Project Sdk="Microsoft.DotNet.Helix.Sdk" DefaultTargets="Test"> -->
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.DotNet.Helix.Sdk" DefaultTargets="Test">
   <PropertyGroup>
     <!-- These properties help ensure proper and consistent restore behavior -->
     <TargetFramework>netcoreapp3.0</TargetFramework>
