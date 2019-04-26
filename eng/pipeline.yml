@@ -139,6 +139,7 @@ jobs:
           -projects $(Build.SourcesDirectory)\eng\helix\helixpublish.proj
           $(_OfficialBuildIdArgs)
           $(_PlatformArgs)
+          /p:WpfTest=true
         displayName: Restoring Nuget Dependencies for Helix
         env:
           SYSTEM_ACCESSTOKEN: $(System.AccessToken)
