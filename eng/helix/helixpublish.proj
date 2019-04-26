@@ -1,27 +1,28 @@
 
-<Project Sdk="Microsoft.DotNet.Helix.Sdk" DefaultTargets="Test">
+<!-- <Project Sdk="Microsoft.DotNet.Helix.Sdk" DefaultTargets="Test"> -->
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <IncludeDotNetCli>true</IncludeDotNetCli>
-    <DotNetCliPackageType>runtime</DotNetCliPackageType>
-    <DotNetCliVersion>latest</DotNetCliVersion>
-    <DotNetCliChannel>Current</DotNetCliChannel>
+    <!-- These properties help ensure proper and consistent restore behavior -->
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RestorePackagesPath>$(MSBuildThisFileDirectory)packages</RestorePackagesPath>
+    
+    <!-- Set WpfTest to true to disable implicit Microsoft.NETCore.Platforms package reference -->
+    <WpfTest>true</WpfTest>
+    
+    <!-- We copy our own dotnet payload over to the machine, so we don't want/need a different dotnet install -->
+    <IncludeDotNetCli>false</IncludeDotNetCli>
     <EnableXUnitReporter>true</EnableXUnitReporter>
     <EnableAzurePipelinesReporter>true</EnableAzurePipelinesReporter>
     <FailOnMissionControlTestFailure>true</FailOnMissionControlTestFailure>
-    <HelixPreCommands>$(HelixPreCommands);set testnameprefix =$(Configuration).$(Platform);set testbuildplatform =$(Platform)</HelixPreCommands>
+    <HelixPreCommands>$(HelixPreCommands); %HELIX_CORRELATION_PAYLOAD%\configure-helix-machine.ps1 </HelixPreCommands>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Include the necessary package versions here -->
-  <!--
-    <PackageReference Include="Microsoft.DotNet.Wpf.Tests" Version="1.0" />
-  -->
-  </ItemGroup>
-  <ItemGroup>
-    <HelixCorrelationPayload Include="..\..\HelixPayload\$(Configuration)\$(Platform)" /> 
+    <PackageReference Include="QV.Wpf.Test" Version="1.0.0" />
+    <HelixCorrelationPayload Include="..\HelixPayload\$(Configuration)\$(Platform)" /> 
     <HelixWorkItem Include="HelloHelix">
       <Timeout>00:20:00</Timeout>
-      <Command>echo "hello from helix!"</Command>
+      <Command>dotnet --info</Command>
     </HelixWorkItem>
    <!-- 
    <HelixWorkItem Include="Annotations">
